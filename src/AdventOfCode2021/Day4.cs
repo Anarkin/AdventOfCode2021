@@ -45,24 +45,21 @@ public partial class Day4
 
         foreach (var pickedNumber in pickedNumbers)
         {
-            if (boardValueLocationDict.TryGetValue(pickedNumber, out var locations))
-            {
-                foreach (var location in locations)
-                {
-                    Set(location.Board, location.Column, location.Row, -1);
-
-                    if (IsBoardWinner(location.Board))
-                    {
-                        var sumOfRemainingNumbers = SumBoard(location.Board);
-                        solution = sumOfRemainingNumbers * pickedNumber;
-                        goto end;
-                    }
-
-                }
-            }
-            else
+            if (!boardValueLocationDict.TryGetValue(pickedNumber, out var locations))
             {
                 throw new Exception("?^");
+            }
+
+            foreach (var location in locations)
+            {
+                Set(location.Board, location.Column, location.Row, -1);
+
+                if (IsBoardWinner(location.Board))
+                {
+                    var sumOfRemainingNumbers = SumBoard(location.Board);
+                    solution = sumOfRemainingNumbers * pickedNumber;
+                    goto end;
+                }
             }
         }
     end:
@@ -80,29 +77,26 @@ public partial class Day4
 
         foreach (var pickedNumber in pickedNumbers)
         {
-            if (boardValueLocationDict.TryGetValue(pickedNumber, out var locations))
-            {
-                foreach (var location in locations)
-                {
-                    Set(location.Board, location.Column, location.Row, -1);
-
-                    if (IsBoardWinner(location.Board))
-                    {
-                        boardsWon.Add(location.Board);
-
-                        if (boardsWon.Count == BoardCount)
-                        {
-                            var sumOfRemainingNumbers = SumBoard(location.Board);
-                            solution = sumOfRemainingNumbers * pickedNumber;
-                            goto end;
-                        }
-                    }
-
-                }
-            }
-            else
+            if (!boardValueLocationDict.TryGetValue(pickedNumber, out var locations))
             {
                 throw new Exception("?^");
+            }
+
+            foreach (var location in locations)
+            {
+                Set(location.Board, location.Column, location.Row, -1);
+
+                if (IsBoardWinner(location.Board))
+                {
+                    boardsWon.Add(location.Board);
+
+                    if (boardsWon.Count == BoardCount)
+                    {
+                        var sumOfRemainingNumbers = SumBoard(location.Board);
+                        solution = sumOfRemainingNumbers * pickedNumber;
+                        goto end;
+                    }
+                }
             }
         }
     end:

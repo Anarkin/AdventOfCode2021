@@ -7,7 +7,7 @@ public class Tasks
     [Fact]
     public void Runner()
     {
-        var x = new Day4().Part2();
+        var x = new Day5().Part1();
         Debugger.Break();
     }
 }
